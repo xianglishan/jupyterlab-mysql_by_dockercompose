@@ -3,7 +3,7 @@
 ### 1, how to use this dev env
 **you must delete jupyterlab-mysql_by_dockercompose/db/data01/readme.txt**
 ```
-git clone ~
+git clone https://github.com/xianglishan/jupyterlab-mysql_by_dockercompose.git
 rm jupyterlab-mysql_by_dockercompose/db/data01/readme.txt
 cd jupyterlab-mysql_by_dockercompose
 docker-compose up -d --build
