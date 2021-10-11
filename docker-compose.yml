@@ -1,0 +1,33 @@
+version: "3"
+services:
+  notebook:
+    build:
+      context: .
+      dockerfile: ./dockerfile/dockerfile
+    ports:
+      - "8888:8888"
+    environment:
+      - JUPYTER_ENABLE_LAB=yes
+    volumes:
+      - ./notebook:/home/jovyan/notebook
+      - /home/xiang/.ssh:/home/jovyan/.ssh
+      - /home/xiang/.gitconfig:/home/jovyan/.gitconfig
+    command: start-notebook.sh --NotebookApp.token=''
+  
+  db:
+    image: mysql:5.7.16
+    volumes:
+      - ./db/data01:/var/lib/mysql
+      - ./db/conf.d:/etc/mysql/conf.d
+      - ./db/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
+    command: --default-authentication-plugin=mysql_native_password
+    cap_add:
+      - SYS_NICE
+    ports:
+      - "3306:3306"
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: pass01
+      MYSQL_DATABASE: world
+      MYSQL_USER: user01
+      MYSQL_PASSWORD: pass01
